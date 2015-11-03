@@ -1,0 +1,13 @@
+/*!
+  \contentspage{index.html}{Stoiridh.Settings}
+  \page index.html
+
+  \title Stoiridh.Settings
+
+  The Stoiridh.Settings module provides a set of settings that can be used to handle the application
+  settings in Qt Quick.
+
+  \section1 Settings
+  The following QML types allow to handle the application settings.
+  \annotatedlist stoiridh_settings
+*/

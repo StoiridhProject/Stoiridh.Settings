@@ -1,0 +1,3 @@
+[submodule "qbs"]
+	path = qbs
+	url = git@github.com:viprip/Stoiridh-Qbs-Configuration.git
