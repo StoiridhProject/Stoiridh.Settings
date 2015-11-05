@@ -18,17 +18,26 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 import qbs 1.0
 
-Project {
+StoiridhQuickPlugin {
     name: "Stoiridh.Settings"
-    minimumQbsVersion: '1.4.0'
-    qbsSearchPaths: ['qbs']
+    targetName: "stoiridh-settings"
+    uri: "Stoiridh.Settings"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //  References                                                                                //
+    //  Sources                                                                                   //
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    references: [
-        'doc/doc.qbs',
-        'src/src.qbs',
-        'tests/tests.qbs'
+    files: [
+        'abstractsetting.cpp',
+        'abstractsetting.hpp',
+        'groupsettings.cpp',
+        'groupsettings.hpp',
+        'setting.cpp',
+        'setting.hpp',
+        'settingmanager.cpp',
+        'settingmanager.hpp',
+        'stoiridhsettings_plugin.cpp',
+        'stoiridhsettings_plugin.hpp',
+        'windowsetting.cpp',
+        'windowsetting.hpp'
     ]
 }

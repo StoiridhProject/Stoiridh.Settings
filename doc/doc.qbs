@@ -18,17 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 import qbs 1.0
 
-Project {
-    name: "Stoiridh.Settings"
-    minimumQbsVersion: '1.4.0'
-    qbsSearchPaths: ['qbs']
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //  References                                                                                //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    references: [
-        'doc/doc.qbs',
-        'src/src.qbs',
-        'tests/tests.qbs'
-    ]
+StoiridhDocumentation {
+    name: "Stoiridh.Settings Documentation"
+    baseName: "stoiridhsettings"
 }

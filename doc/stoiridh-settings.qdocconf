@@ -6,14 +6,14 @@ project     = Stoiridh.Settings
 description = Stoiridh.Settings Reference Documentation
 version     = $PROJECT_VERSION
 
-outputdir      = $OUTPUT_DIR/stoiridhsettings
+outputdir      = $OUTDIR/stoiridhsettings
 outputencoding = UTF-8
 sourceencoding = UTF-8
 
 headerdirs += \
     $PROJECT_DIR/src
 sourcedirs += \
-    $SOURCE_DIR/src \
+    $SOURCE_DIR \
     $PROJECT_DIR/src
 
 indexes += \
