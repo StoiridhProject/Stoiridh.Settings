@@ -22,6 +22,7 @@ StoiridhQuickPlugin {
     name: "Stoiridh.Settings"
     targetName: "stoiridh-settings"
     uri: "Stoiridh.Settings"
+    version: "1.0"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //  Sources                                                                                   //
