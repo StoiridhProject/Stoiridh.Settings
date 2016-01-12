@@ -36,9 +36,9 @@ StoiridhQuickPlugin {
         'setting.hpp',
         'settingmanager.cpp',
         'settingmanager.hpp',
-        'stoiridhsettings_plugin.cpp',
-        'stoiridhsettings_plugin.hpp',
         'windowsetting.cpp',
         'windowsetting.hpp'
+        "plugin.cpp",
+        "plugin.hpp",
     ]
 }

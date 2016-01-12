@@ -16,7 +16,7 @@
 //            along with this program.  If not, see <http://www.gnu.org/licenses/>.               //
 //                                                                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "stoiridhsettings_plugin.hpp"
+#include "plugin.hpp"
 
 #include "groupsettings.hpp"
 #include "setting.hpp"
