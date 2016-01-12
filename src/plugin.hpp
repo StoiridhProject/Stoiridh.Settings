@@ -21,10 +21,10 @@
 
 #include <QQmlExtensionPlugin>
 
-class StoiridhSettingsPlugin : public QQmlExtensionPlugin
+class StoiridhSettingsPlugin final : public QQmlExtensionPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface/1.0")
 
 public:
     void registerTypes(const char *uri) override;
