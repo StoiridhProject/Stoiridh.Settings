@@ -251,10 +251,8 @@ void WindowSettings::componentComplete()
     m_userGeometry = m_geometry;
 }
 
-// FIXME Rewrite the updateGeometry() method
 void WindowSettings::updateGeometry(QWindow::Visibility visibility)
 {
-    // NOTE Less obscur but need testing in Pjyun, before commit!
     if (visibility != QWindow::FullScreen && visibility != QWindow::Maximized)
     {
         if (m_window)
