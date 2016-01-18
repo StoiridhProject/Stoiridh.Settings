@@ -16,36 +16,39 @@
 //            along with this program.  If not, see <http://www.gnu.org/licenses/>.               //
 //                                                                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef STOIRIDH_SETTINGS_SETTINGMANAGER_HPP
-#define STOIRIDH_SETTINGS_SETTINGMANAGER_HPP
+#ifndef STOIRIDH_SETTINGS_SETTINGSMANAGER_HPP
+#define STOIRIDH_SETTINGS_SETTINGSMANAGER_HPP
 
 #include <QObject>
+#include <QPointer>
 
 QT_BEGIN_NAMESPACE
 class QQmlEngine;
 class QJSEngine;
 QT_END_NAMESPACE
 
-class AbstractSetting;
+class Settings;
 
-class SettingManager final : public QObject
+class SettingsManager final : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit SettingManager(QObject *parent = nullptr);
-    ~SettingManager();
+    explicit SettingsManager(QObject *parent = nullptr);
+    ~SettingsManager() override;
 
     static QObject *provider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
-    static void registerSetting(AbstractSetting *setting);
-    static void unregisterSetting(AbstractSetting *setting);
+    static void registerSettings(Settings *settings);
+    static void unregisterSettings(Settings *settings);
 
     Q_INVOKABLE void load();
     Q_INVOKABLE void save();
 
 private:
-    static QVector<AbstractSetting *> m_settings;
+    Q_DISABLE_COPY(SettingsManager)
+
+    static QVector<QPointer<Settings>> m_settings;
 };
 
-#endif // STOIRIDH_SETTINGS_SETTINGMANAGER_HPP
+#endif // STOIRIDH_SETTINGS_SETTINGSMANAGER_HPP

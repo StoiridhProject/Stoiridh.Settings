@@ -27,8 +27,8 @@ Project {
     //  References                                                                                //
     ////////////////////////////////////////////////////////////////////////////////////////////////
     references: [
-        'doc/doc.qbs',
-        'src/src.qbs',
-        'tests/tests.qbs'
+        "doc",
+        "src",
+        "tests"
     ]
 }

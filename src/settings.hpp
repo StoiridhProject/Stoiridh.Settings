@@ -16,22 +16,44 @@
 //            along with this program.  If not, see <http://www.gnu.org/licenses/>.               //
 //                                                                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef STOIRIDH_SETTINGS_ABSTRACTSETTING_HPP
-#define STOIRIDH_SETTINGS_ABSTRACTSETTING_HPP
+#ifndef STOIRIDH_SETTINGS_SETTINGS_HPP
+#define STOIRIDH_SETTINGS_SETTINGS_HPP
 
 #include <QObject>
 #include <QSettings>
 
-class AbstractSetting : public QObject
+class Settings : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged RESET resetName FINAL)
 
 public:
-    explicit AbstractSetting(QObject *parent = nullptr);
-    virtual ~AbstractSetting();
+    explicit Settings(QObject *parent = nullptr);
+    ~Settings() override;
 
-    virtual void load(QSettings &settings) = 0;
-    virtual void save(QSettings &settings) const = 0;
+    inline QString name() const;
+    void setName(QString name);
+    void resetName();
+
+    virtual void load(QSettings &settings);
+    virtual void save(QSettings &settings);
+
+signals:
+    void nameChanged(QString name);
+
+private:
+    Q_DISABLE_COPY(Settings)
+
+    QString m_name;
 };
 
-#endif // STOIRIDH_SETTINGS_ABSTRACTSETTING_HPP
+//--------------------------------------------------------------------------------------------------
+
+inline QString Settings::name() const
+{
+    return m_name;
+}
+
+//--------------------------------------------------------------------------------------------------
+
+#endif // STOIRIDH_SETTINGS_SETTINGS_HPP

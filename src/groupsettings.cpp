@@ -18,56 +18,63 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "groupsettings.hpp"
 
-#include "setting.hpp"
-#include "settingmanager.hpp"
+#include "settings.hpp"
+#include "settingsmanager.hpp"
 
 
-/*!
-  \qmltype GroupSettings
-  \instantiates GroupSettings
-  \inherits Setting
-  \inqmlmodule Stoiridh.Settings
-  \ingroup stoiridh_settings
-  \since Stoiridh.Settings 1.0
+/*! \qmltype GroupSettings
+    \instantiates GroupSettings
+    \inherits Settings
+    \inqmlmodule Stoiridh.Settings
+    \ingroup stoiridh_settings
+    \since Stoiridh.Settings 1.0
 
-  \brief Groups the settings together
+    \brief GroupSettings provides a way to group several settings.
 
-  Example:
-  \qml
-  import QtQuick 2.5
-  import QtQuick.Controls 1.4
-  import Stoiridh.Settings 1.0
+    A GroupSettings item can be used to group several Settings items.
 
-  ApplicationWindow {
-      id: mainWindow
+    Using the \l{Settings::}{name} property prevents from accidental writing during a call to the
+    \l{SettingsManager::}{save()} function from the SettingsManager.
 
-      GroupSettings {
-          name: "MainWindow"
+    Example:
 
-          GroupSettings {}
-          Setting {}
-          WindowSetting {}
-      }
-  }
-  \endqml
- */
+    \qml
+    import QtQuick 2.5
+    import QtQuick.Controls 1.4
+    import Stoiridh.Settings 1.0
 
-/*! \qmlproperty list<Setting> GroupSettings::settings
-    \default
+    ApplicationWindow {
+        id: mainWindow
 
-    Gets or sets the settings containing in \c this group.
+        GroupSettings {
+            name: "MainWindow"
+
+            GroupSettings {}
+            Settings {}
+            WindowSettings {}
+
+            // ...
+        }
+    }
+    \endqml
+
+    As a GroupSettings item inherits from Settings, so it can also be a child of another
+    GroupSettings item.
 */
 
-/*!
-  \brief Constructs a GroupSettings object with an optional \a parent as parent.
-*/
-GroupSettings::GroupSettings(AbstractSetting *parent)
-    : Setting{parent}
+
+GroupSettings::GroupSettings(Settings *parent)
+    : Settings{parent}
 {
 
 }
 
-QQmlListProperty<AbstractSetting> GroupSettings::settings()
+/*! \qmlproperty list<Settings> Stoiridh.Settings::GroupSettings::settings
+    \default
+
+    This default property holds a list of settings in the group.
+*/
+QQmlListProperty<Settings> GroupSettings::settings()
 {
     return {this,
             nullptr,
@@ -79,58 +86,78 @@ QQmlListProperty<AbstractSetting> GroupSettings::settings()
 
 void GroupSettings::load(QSettings &settings)
 {
-    Setting::load(settings);
+    Settings::load(settings);
 
-    settings.beginGroup(m_name);
+    settings.beginGroup(name());
     {
-        for (auto *s : m_settings)
-            s->load(settings);
-    }
-    settings.endGroup();
-}
-
-void GroupSettings::save(QSettings &settings) const
-{
-    Setting::save(settings);
-
-    settings.beginGroup(m_name);
-    {
-        for (const auto *s : m_settings)
-            s->save(settings);
-    }
-    settings.endGroup();
-}
-
-void GroupSettings::append(QQmlListProperty<AbstractSetting> *property, AbstractSetting *setting)
-{
-    if (auto *groupSetting = qobject_cast<GroupSettings *>(property->object))
-    {
-        if (setting)
+        for (auto *setting : m_settings)
         {
-            groupSetting->m_settings.append(setting);
-            SettingManager::unregisterSetting(setting);
+            if (setting)
+                setting->load(settings);
+        }
+    }
+    settings.endGroup();
+}
+
+void GroupSettings::save(QSettings &settings)
+{
+    Settings::save(settings);
+
+    settings.beginGroup(name());
+    {
+        for (auto *setting : m_settings)
+        {
+            if (setting)
+                setting->save(settings);
+        }
+    }
+    settings.endGroup();
+}
+
+void GroupSettings::append(QQmlListProperty<Settings> *property, Settings *settings)
+{
+    auto *groupSettings = qobject_cast<GroupSettings *>(property->object);
+
+    if (groupSettings)
+    {
+        if (settings)
+        {
+            groupSettings->m_settings.append(settings);
+            SettingsManager::unregisterSettings(settings);
         }
     }
 }
 
-AbstractSetting *GroupSettings::at(QQmlListProperty<AbstractSetting> *property, int index)
+Settings *GroupSettings::at(QQmlListProperty<Settings> *property, int index)
 {
-    if (auto *groupSetting = qobject_cast<GroupSettings *>(property->object))
-        return groupSetting->m_settings.at(index);
+    const auto *groupSettings = qobject_cast<GroupSettings *>(property->object);
+
+    if (groupSettings)
+    {
+        return groupSettings->m_settings.at(index);
+    }
 
     return nullptr;
 }
 
-void GroupSettings::clear(QQmlListProperty<AbstractSetting> *property)
+void GroupSettings::clear(QQmlListProperty<Settings> *property)
 {
-    if (auto *groupSetting = qobject_cast<GroupSettings *>(property->object))
-        groupSetting->m_settings.clear();
+    auto *groupSettings = qobject_cast<GroupSettings *>(property->object);
+
+    if (groupSettings)
+    {
+        groupSettings->m_settings.clear();
+    }
 }
 
-int GroupSettings::count(QQmlListProperty<AbstractSetting> *property)
+int GroupSettings::count(QQmlListProperty<Settings> *property)
 {
-    if (auto *groupSetting = qobject_cast<GroupSettings *>(property->object))
-        return groupSetting->m_settings.count();
+    const auto *groupSettings = qobject_cast<GroupSettings *>(property->object);
+
+    if (groupSettings)
+    {
+        return groupSettings->m_settings.count();
+    }
 
     return 0;
 }

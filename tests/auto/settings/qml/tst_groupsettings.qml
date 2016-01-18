@@ -8,7 +8,7 @@
 //            (at your option) any later version.                                                 //
 //                                                                                                //
 //            This program is distributed in the hope that it will be useful,                     //
-//            but WITHOUT ANY WARRANTY without even the implied warranty of                      //
+//            but WITHOUT ANY WARRANTY without even the implied warranty of                       //
 //            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                       //
 //            GNU General Public License for more details.                                        //
 //                                                                                                //
@@ -21,110 +21,151 @@ import QtTest 1.1
 import Stoiridh.Settings 1.0
 
 TestCase {
-    id: root
+    id: testCase
     name: "GroupSettings"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //  Child objects                                                                             //
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    GroupSettings {
-        id: groupSettings
-        name: "MainWindow"
-
-        property int activeEditor: 1
-
+    Component {
+        id: groupSettingsItem
         GroupSettings {
-            id: defaultProjectSettings
-            name: "DefaultProject"
+            name: "Test/GroupSettings"
 
-            property string mapOrientation: "Isometric"
-            property vector2d mapSize: Qt.vector2d(512, 512)
-            property vector2d tileSize: Qt.vector2d(64, 32)
-        }
+            // Settings A
+            Settings {
+                objectName: "settingsA"
+                name: "MainWindow"
 
-        GroupSettings {
-            id: animationSetting
-            name: "Animation"
+                property int x: -1
+                property int y: -1
+                property int width: -1
+                property int height: -1
+            }
 
-            property real framerate: 1.0 / 60.0
+            // Settings B
+            Settings {
+                objectName: "settingsB"
+                name: "Preferences"
 
-            Setting {
-                id: colourSetting
-                name: "Colours"
+                property string theme
+            }
 
-                property color blue: Qt.rgba(0.04, 0.54, 0.78, 1.0)
-                property color green: Qt.rgba(0.05, 0.67, 0.19, 1.0)
+            // Settings C
+            Settings {
+                objectName: "settingsC"
+                name: "Projects"
+                property var recents
             }
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //  Functions                                                                                 //
+    //  Tests                                                                                     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    function reset() {
-        groupSettings.activeEditor = 1
-
-        defaultProjectSettings.mapOrientation = "Isometric"
-        defaultProjectSettings.mapSize = Qt.vector2d(512, 512)
-        defaultProjectSettings.tileSize = Qt.vector2d(64, 32)
-
-        animationSetting.framerate = 1.0 / 60.0
-
-        colourSetting.blue = Qt.rgba(0.04, 0.54, 0.78, 1.0)
-        colourSetting.green = Qt.rgba(0.05, 0.67, 0.19, 1.0)
+    function init_data() {
+        return [
+                    {
+                        tag: "1",
+                        settingsA: { x: 200, y: 200, width:  800, height: 600 },
+                        settingsB: { theme: "Light" },
+                        settingsC: { recents: ["project01", "project02"] }
+                    },
+                    {
+                        tag: "2",
+                        settingsA: { x: 300, y:  30, width:  600, height: 300 },
+                        settingsB: { theme: "Dark" },
+                        settingsC: { recents: ["project05", "project01", "project02"] }
+                    },
+                    {
+                        tag: "3",
+                        settingsA: { x: 125, y:  50, width:  450, height: 680 },
+                        settingsB: { theme: "Blue" },
+                        settingsC: { recents: ["project02", "project01", "project05"] }
+                    },
+                    {
+                        tag: "4",
+                        settingsA: { x: 475, y: 500, width:  512, height: 512 },
+                        settingsB: { theme: "Zen" },
+                        settingsC: { recents: ["project01", "project02", "project03", "project04"] }
+                    },
+                    {
+                        tag: "5",
+                        settingsA: { x: 500, y: 250, width: 1280, height: 720 },
+                        settingsB: { theme: "Yün" },
+                        settingsC: { recents: ["project02", "project01"] }
+                    },
+                ]
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //  Test                                                                                      //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    function init() {
-        reset()
-        SettingManager.save()
+    function test_1_save(data) {
+        var groupSettings = groupSettingsItem.createObject(testCase)
+        verify(groupSettings)
+
+        groupSettings.name = "Test/GroupSettings/" + data.tag
+
+        var settingsA = findChild(groupSettings, "settingsA")
+        verify(settingsA)
+        var settingsB = findChild(groupSettings, "settingsB")
+        verify(settingsB)
+        var settingsC = findChild(groupSettings, "settingsC")
+        verify(settingsC)
+
+        // Settings A: MainWindow
+        settingsA.x = data.settingsA.x
+        settingsA.y = data.settingsA.y
+        settingsA.width = data.settingsA.width
+        settingsA.height = data.settingsA.height
+
+        // Settings B: Preferences
+        settingsB.theme = data.settingsB.theme
+
+        // Settings C: Projects
+        settingsC.recents = data.settingsC.recents
+
+        SettingsManager.save()
+
+        // Settings A
+        compare(settingsA.x, data.settingsA.x)
+        compare(settingsA.y, data.settingsA.y)
+        compare(settingsA.width, data.settingsA.width)
+        compare(settingsA.height, data.settingsA.height)
+
+        // Settings B
+        compare(settingsB.theme, data.settingsB.theme)
+
+        // Settings C
+        compare(settingsC.recents, data.settingsC.recents)
+
+        groupSettings.destroy()
     }
 
-    function test_save() {
-        compare(groupSettings.name, "MainWindow")
-        compare(defaultProjectSettings.name, "DefaultProject")
-        compare(animationSetting.name, "Animation")
-        compare(colourSetting.name, "Colours")
-        SettingManager.load()
+    function test_2_load(data) {
+        var groupSettings = groupSettingsItem.createObject(testCase)
+        verify(groupSettings)
 
-        compare(groupSettings.activeEditor, 1)
+        groupSettings.name = "Test/GroupSettings/" + data.tag
 
-        compare(defaultProjectSettings.mapOrientation, "Isometric")
-        compare(defaultProjectSettings.mapSize, Qt.vector2d(512, 512))
-        compare(defaultProjectSettings.tileSize, Qt.vector2d(64, 32))
+        var settingsA = findChild(groupSettings, "settingsA")
+        verify(settingsA)
+        var settingsB = findChild(groupSettings, "settingsB")
+        verify(settingsB)
+        var settingsC = findChild(groupSettings, "settingsC")
+        verify(settingsC)
 
-        compare(animationSetting.framerate, (1.0 / 60.0))
+        SettingsManager.load()
 
-        compare(colourSetting.blue, Qt.rgba(0.04, 0.54, 0.78, 1.0))
-        compare(colourSetting.green, Qt.rgba(0.05, 0.67, 0.19, 1.0))
-    }
+        // Settings A
+        compare(settingsA.x, data.settingsA.x)
+        compare(settingsA.y, data.settingsA.y)
+        compare(settingsA.width, data.settingsA.width)
+        compare(settingsA.height, data.settingsA.height)
 
-    function test_load() {
-        groupSettings.activeEditor = 2
+        // Settings B
+        compare(settingsB.theme, data.settingsB.theme)
 
-        defaultProjectSettings.mapOrientation = "Orthogonal"
-        defaultProjectSettings.mapSize = Qt.vector2d(1024, 1024)
-        defaultProjectSettings.tileSize = Qt.vector2d(128, 128)
+        // Settings C
+        compare(settingsC.recents, data.settingsC.recents)
 
-        animationSetting.framerate = 1.0 / 30.0
-
-        colourSetting.blue = Qt.rgba(0.19, 0.48, 1.0, 1.0)
-        colourSetting.green = Qt.rgba(0.1, 0.43, 0.01, 1.0)
-
-        SettingManager.save()
-        reset()
-        SettingManager.load()
-
-        compare(groupSettings.activeEditor, 2)
-
-        compare(defaultProjectSettings.mapOrientation, "Orthogonal")
-        compare(defaultProjectSettings.mapSize, Qt.vector2d(1024, 1024))
-        compare(defaultProjectSettings.tileSize, Qt.vector2d(128, 128))
-
-        compare(animationSetting.framerate, (1.0 / 30.0))
-
-        compare(colourSetting.blue, Qt.rgba(0.19, 0.48, 1.0, 1.0))
-        compare(colourSetting.green, Qt.rgba(0.1, 0.43, 0.01, 1.0))
+        groupSettings.destroy()
     }
 }

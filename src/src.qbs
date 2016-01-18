@@ -28,17 +28,15 @@ StoiridhQuickPlugin {
     //  Sources                                                                                   //
     ////////////////////////////////////////////////////////////////////////////////////////////////
     files: [
-        'abstractsetting.cpp',
-        'abstractsetting.hpp',
-        'groupsettings.cpp',
-        'groupsettings.hpp',
-        'setting.cpp',
-        'setting.hpp',
-        'settingmanager.cpp',
-        'settingmanager.hpp',
-        'windowsetting.cpp',
-        'windowsetting.hpp'
+        "groupsettings.cpp",
+        "groupsettings.hpp",
+        "settings.cpp",
+        "settings.hpp",
+        "settingsmanager.cpp",
+        "settingsmanager.hpp",
         "plugin.cpp",
         "plugin.hpp",
+        "windowsettings.cpp",
+        "windowsettings.hpp",
     ]
 }

@@ -16,64 +16,71 @@
 //            along with this program.  If not, see <http://www.gnu.org/licenses/>.               //
 //                                                                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "setting.hpp"
+#include "settings.hpp"
+
+#include "settingsmanager.hpp"
 
 #include <QMetaProperty>
 
 
-/*!
-  \qmltype Setting
-  \instantiates Setting
-  \inqmlmodule Stoiridh.Settings
-  \ingroup stoiridh_settings
-  \since Stoiridh.Settings 1.0
+/*! \qmltype Settings
+    \instantiates Settings
+    \inherits QtObject
+    \inqmlmodule Stoiridh.Settings
+    \ingroup stoiridh_settings
+    \since Stoiridh.Settings 1.0
 
-  \brief Provides a way to use the properties as setting
+    \brief Provides a way to handle the application settings.
 
-  Example:
-  \qml
-  import QtQuick 2.5
-  import QtQuick.Controls 1.4
-  import Stoiridh.Settings 1.0
+    A Settings item uses its properties as setting fields in order to save and restore the state of
+    an item or an object in an application.
 
-  ApplicationWindow {
-      id: mainWindow
+    The \l{Settings::}{name} property can be set so as to prevent from accidental writing of
+    settings.
 
-      Setting {
-          name: "Options"
-          property bool saveOnExit: true
-      }
-  }
-  \endqml
- */
+    Example:
 
-/*!
-  \qmlproperty string Setting::name
+    \qml
+    import QtQuick 2.5
+    import QtQuick.Controls 1.4
+    import Stoiridh.Settings 1.0
 
-  Gets or sets a name for \c this setting in order to group all properties rather than in the global
-  scope or in the \l{GroupSettings} scope.
+    ApplicationWindow {
+        id: mainWindow
 
-  \sa QSettings::beginGroup(), QSettings::endGroup()
+        Settings {
+            name: "MainWindow"
+
+            property alias x: mainWindow.x
+            property alias y: mainWindow.y
+            property alias width: mainWindow.width
+            property alias height: mainWindow.height
+            property alias visible: mainWindow.visible
+        }
+    }
+    \endqml
+
+    \b Note: It is recommended to use \c alias properties in a Settings item.
 */
 
 
-Setting::Setting(AbstractSetting *parent)
-    : AbstractSetting{parent}
+Settings::Settings(QObject *parent)
+    : QObject{parent}
 {
-
+    SettingsManager::registerSettings(this);
 }
 
-QString Setting::name() const
+Settings::~Settings()
 {
-    return m_name;
+    SettingsManager::unregisterSettings(this);
 }
 
-void Setting::resetName()
-{
-    setName(QString{});
-}
+/*! \qmlproperty string Stoiridh.Settings::Settings::name
 
-void Setting::setName(QString name)
+    This property holds the name that will be used in the same way as a group where all properties
+    set in the Settings item will be in the scope of \c name.
+*/
+void Settings::setName(QString name)
 {
     if (m_name != name)
     {
@@ -82,7 +89,12 @@ void Setting::setName(QString name)
     }
 }
 
-void Setting::load(QSettings &settings)
+void Settings::resetName()
+{
+    setName(QString{});
+}
+
+void Settings::load(QSettings &settings)
 {
     settings.beginGroup(m_name);
     {
@@ -105,7 +117,7 @@ void Setting::load(QSettings &settings)
     settings.endGroup();
 }
 
-void Setting::save(QSettings &settings) const
+void Settings::save(QSettings &settings)
 {
     settings.beginGroup(m_name);
     {

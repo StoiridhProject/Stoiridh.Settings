@@ -19,33 +19,34 @@
 #ifndef STOIRIDH_SETTINGS_GROUPSETTINGS_HPP
 #define STOIRIDH_SETTINGS_GROUPSETTINGS_HPP
 
-#include "setting.hpp"
+#include "settings.hpp"
 
 #include <QQmlListProperty>
 
-class GroupSettings : public Setting
+class GroupSettings : public Settings
 {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty<AbstractSetting> settings READ settings)
+    Q_PROPERTY(QQmlListProperty<Settings> settings READ settings)
     Q_CLASSINFO("DefaultProperty", "settings")
 
 public:
-    explicit GroupSettings(AbstractSetting *parent = nullptr);
-    ~GroupSettings() = default;
+    explicit GroupSettings(Settings *parent = nullptr);
 
-    QQmlListProperty<AbstractSetting> settings();
+    QQmlListProperty<Settings> settings();
 
     void load(QSettings &settings) override;
-    void save(QSettings &settings) const override;
+    void save(QSettings &settings) override;
 
 private:
-    static void append(QQmlListProperty<AbstractSetting> *property, AbstractSetting *setting);
-    static AbstractSetting *at(QQmlListProperty<AbstractSetting> *property, int index);
-    static void clear(QQmlListProperty<AbstractSetting> *property);
-    static int count(QQmlListProperty<AbstractSetting> *property);
+    static void append(QQmlListProperty<Settings> *property, Settings *settings);
+    static Settings *at(QQmlListProperty<Settings> *property, int index);
+    static void clear(QQmlListProperty<Settings> *property);
+    static int count(QQmlListProperty<Settings> *property);
 
 private:
-    QList<AbstractSetting *> m_settings{};
+    Q_DISABLE_COPY(GroupSettings)
+
+    QList<Settings *> m_settings{};
 };
 
 #endif // STOIRIDH_SETTINGS_GROUPSETTINGS_HPP

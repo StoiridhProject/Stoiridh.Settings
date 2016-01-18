@@ -19,21 +19,20 @@
 #include "plugin.hpp"
 
 #include "groupsettings.hpp"
-#include "setting.hpp"
-#include "settingmanager.hpp"
-#include "windowsetting.hpp"
+#include "settings.hpp"
+#include "settingsmanager.hpp"
+#include "windowsettings.hpp"
 
 #include <qqml.h>
 
 void StoiridhSettingsPlugin::registerTypes(const char *uri)
 {
     // @uri Stoiridh.Settings
-    qmlRegisterType<AbstractSetting>();
     qmlRegisterType<GroupSettings>(uri, 1, 0, "GroupSettings");
-    qmlRegisterType<Setting>(uri, 1, 0, "Setting");
-    qmlRegisterType<WindowSetting>(uri, 1, 0, "WindowSetting");
+    qmlRegisterType<Settings>(uri, 1, 0, "Settings");
+    qmlRegisterType<WindowSettings>(uri, 1, 0, "WindowSettings");
 
-    qmlRegisterSingletonType<SettingManager>(uri,
+    qmlRegisterSingletonType<SettingsManager>(uri,
                                              1, 0,
-                                             "SettingManager", &SettingManager::provider);
+                                             "SettingsManager", &SettingsManager::provider);
 }
