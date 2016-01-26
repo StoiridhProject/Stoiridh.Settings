@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 import qbs 1.0
 
-StoiridhQuickTest {
+StoiridhQuickQMLTest {
     name: "Stoiridh.Settings Autotests"
     testName: "stoiridh_settings"
 
