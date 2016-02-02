@@ -31,7 +31,7 @@ public:
     explicit Settings(QObject *parent = nullptr);
     ~Settings() override;
 
-    inline QString name() const;
+    QString name() const;
     void setName(QString name);
     void resetName();
 
@@ -50,9 +50,7 @@ private:
 //--------------------------------------------------------------------------------------------------
 
 inline QString Settings::name() const
-{
-    return m_name;
-}
+{ return m_name; }
 
 //--------------------------------------------------------------------------------------------------
 

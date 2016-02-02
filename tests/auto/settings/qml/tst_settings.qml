@@ -55,11 +55,11 @@ TestCase {
 
     function init_data() {
         return [
-                    {tag: "1", x: 200, y: 200, width:  800, height: 600},
-                    {tag: "2", x: 300, y:  30, width:  600, height: 300},
-                    {tag: "3", x: 125, y:  50, width:  450, height: 680},
-                    {tag: "4", x: 475, y: 500, width:  512, height: 512},
-                    {tag: "5", x: 500, y: 250, width: 1280, height: 720},
+                    { tag: "1", x: 200, y: 200, width:  800, height: 600 },
+                    { tag: "2", x: 300, y:  30, width:  600, height: 300 },
+                    { tag: "3", x: 125, y:  50, width:  450, height: 680 },
+                    { tag: "4", x: 475, y: 500, width:  512, height: 512 },
+                    { tag: "5", x: 500, y: 250, width: 1280, height: 720 },
                 ]
     }
 

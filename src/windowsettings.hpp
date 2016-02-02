@@ -48,22 +48,22 @@ public:
     };
     Q_ENUM(PreferredPosition)
 
-    inline QQuickWindow *window() const;
+    QQuickWindow *window() const;
     void setWindow(QQuickWindow *window);
 
-    inline int x() const;
+    int x() const;
     void setX(int x);
 
-    inline int y() const;
+    int y() const;
     void setY(int y);
 
-    inline int width() const;
+    int width() const;
     void setWidth(int width);
 
-    inline int height() const;
+    int height() const;
     void setHeight(int height);
 
-    inline PreferredPosition preferredPosition() const;
+    PreferredPosition preferredPosition() const;
     void setPreferredPosition(PreferredPosition preferredPosition);
 
     void load(QSettings &settings) override;
@@ -89,7 +89,7 @@ private:
 private:
     Q_DISABLE_COPY(WindowSettings)
 
-    QPointer<QQuickWindow> m_window;
+    QPointer<QQuickWindow> m_window{};
     QRect m_geometry{};
     QRect m_userGeometry{};
     PreferredPosition m_preferredPosition{PreferredPosition::Centred};
