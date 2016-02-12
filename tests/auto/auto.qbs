@@ -20,6 +20,7 @@ import qbs 1.0
 
 Project {
     name: "Autotests"
+    condition: project.enableAutotests !== undefined ? project.enableAutotests : true
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //  References                                                                                //
