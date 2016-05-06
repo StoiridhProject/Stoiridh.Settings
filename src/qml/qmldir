@@ -1,4 +1,4 @@
 module Stoiridh.Settings
-plugin stoiridh-settings
+plugin StoiridhSettingsPlugin
 classname StoiridhSettingsPlugin
 typeinfo plugins.qmltypes
