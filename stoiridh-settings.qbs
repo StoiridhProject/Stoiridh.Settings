@@ -20,8 +20,8 @@ import qbs 1.0
 
 Project {
     name: "Stoiridh.Settings"
-    minimumQbsVersion: '1.4.0'
-    qbsSearchPaths: ['qbs']
+    minimumQbsVersion: '1.5.0'
+    qbsSearchPaths: ['config/qbs']
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //  References                                                                                //
