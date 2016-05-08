@@ -42,6 +42,6 @@ before_script:
 
 script:
     # CMake build
-    - cmake -G"Unix Makefiles" ../Stoiridh.Settings
+    - cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE:STRING=Debug ../Stoiridh.Settings
     - make
-    - ctest
+    - ctest -V
