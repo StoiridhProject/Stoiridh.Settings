@@ -6,4 +6,4 @@
 	url = https://github.com/viprip/Stoiridh-Qbs-Tools.git
 [submodule "doc/global"]
 	path = doc/global
-	url = git@github.com:viprip/Stoiridh-QDoc-template.git
+	url = https://github.com/viprip/Stoiridh-QDoc-template.git
