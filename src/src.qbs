@@ -21,7 +21,7 @@ import Stoiridh.QtQuick
 
 QtQuick.Plugin {
     name: "Stoiridh.Settings"
-    targetName: "stoiridh-settings"
+    targetName: "StoiridhSettingsPlugin"
     uri: "Stoiridh.Settings"
     version: "1.0"
 
