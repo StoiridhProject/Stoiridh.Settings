@@ -1,13 +1,13 @@
 # Stòiridh.Settings
 
-Stòiridh.Settings is a QML module handling the settings of your Qt Quick application.
+Stòiridh.Settings is a QML module handling the settings of your QML application.
 
 # Requirements
 
 |           Name           | Minimum Version Required |
 |:------------------------:|:------------------------:|
 | [Qt](https://www.qt.io)  |          5.5.1           |
-| [Qbs](https://www.qt.io) |          1.4.0           |
+| [Qbs](https://www.qt.io) |          1.5.0           |
 
 # Licence
 
