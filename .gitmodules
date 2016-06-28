@@ -4,6 +4,3 @@
 [submodule "config/qbs"]
 	path = config/qbs
 	url = https://github.com/viprip/Stoiridh-Qbs-Tools.git
-[submodule "doc/global"]
-	path = doc/global
-	url = https://github.com/viprip/Stoiridh-QDoc-template.git
