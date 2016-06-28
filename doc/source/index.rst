@@ -19,6 +19,8 @@ settings of your QML application.
 .. toctree::
    :maxdepth: 1
 
+   api
+
 Indices and tables
 ==================
 

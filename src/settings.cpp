@@ -23,47 +23,6 @@
 #include <QMetaProperty>
 
 
-/*! \qmltype Settings
-    \instantiates Settings
-    \inherits QtObject
-    \inqmlmodule Stoiridh.Settings
-    \ingroup stoiridh_settings
-    \since Stoiridh.Settings 1.0
-
-    \brief Provides a way to handle the application settings.
-
-    A Settings item uses its properties as setting fields in order to save and restore the state of
-    an item or an object in an application.
-
-    The \l{Settings::}{name} property can be set so as to prevent from accidental writing of
-    settings.
-
-    Example:
-
-    \qml
-    import QtQuick 2.5
-    import QtQuick.Controls 1.4
-    import Stoiridh.Settings 1.0
-
-    ApplicationWindow {
-        id: mainWindow
-
-        Settings {
-            name: "MainWindow"
-
-            property alias x: mainWindow.x
-            property alias y: mainWindow.y
-            property alias width: mainWindow.width
-            property alias height: mainWindow.height
-            property alias visible: mainWindow.visible
-        }
-    }
-    \endqml
-
-    \b Note: It is recommended to use \c alias properties in a Settings item.
-*/
-
-
 Settings::Settings(QObject *parent)
     : QObject{parent}
 {
