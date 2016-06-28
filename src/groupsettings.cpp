@@ -22,47 +22,6 @@
 #include "settingsmanager.hpp"
 
 
-/*! \qmltype GroupSettings
-    \instantiates GroupSettings
-    \inherits Settings
-    \inqmlmodule Stoiridh.Settings
-    \ingroup stoiridh_settings
-    \since Stoiridh.Settings 1.0
-
-    \brief GroupSettings provides a way to group several settings.
-
-    A GroupSettings item can be used to group several Settings items.
-
-    Using the \l{Settings::}{name} property prevents from accidental writing during a call to the
-    \l{SettingsManager::}{save()} function from the SettingsManager.
-
-    Example:
-
-    \qml
-    import QtQuick 2.5
-    import QtQuick.Controls 1.4
-    import Stoiridh.Settings 1.0
-
-    ApplicationWindow {
-        id: mainWindow
-
-        GroupSettings {
-            name: "MainWindow"
-
-            GroupSettings {}
-            Settings {}
-            WindowSettings {}
-
-            // ...
-        }
-    }
-    \endqml
-
-    As a GroupSettings item inherits from Settings, so it can also be a child of another
-    GroupSettings item.
-*/
-
-
 GroupSettings::GroupSettings(Settings *parent)
     : Settings{parent}
 {

@@ -22,66 +22,6 @@
 #include <QScreen>
 
 
-/*! \qmltype WindowSettings
-    \instantiates WindowSettings
-    \inherits Settings
-    \inqmlmodule Stoiridh.Settings
-    \ingroup stoiridh_settings
-    \since Stoiridh.Settings 1.0
-
-    \brief Saves and restores the window's geometry and state.
-
-    A WindowSettings item saves and restores the window's geometry and state.
-
-    \b Warning: WindowSettings doesn't accept user-defined properties.
-
-    \section2 Geometry
-
-    The WindowSettings's geometry represents the default window's geometry that can be saved instead
-    of the window's geometry. This happens when the current window's state is either
-    \l{QWindow::}{FullScreen} or \l{QWindow::}{Maximized}.
-
-    \b Note: It is recommended to always set the WindowSettings's geometry even if the preferred
-    position is \c{WindowSettings.Centred}.
-
-    \section2 Preferred position
-
-    While the settings is loading, the window can be restored either at the centre or
-    at the latest position known in relation to the screen where the window is shown during the
-    previous save.
-
-    For this, it exists two flags to control this behaviour:
-
-    \list
-    \li \c{WindowSettings.Centred} allows to centre the window in relation to the screen.
-    \li \c{WindowSettings.User} allows to place the window at the desired position.
-    \endlist
-
-
-    Example:
-
-    \qml
-    import QtQuick 2.5
-    import QtQuick.Controls 1.4
-    import Stoiridh.Settings 1.0
-
-    ApplicationWindow {
-        id: mainWindow
-
-        WindowSettings {
-            name: "MainWindow"
-            window: mainWindow
-            preferredPosition: WindowSettings.Centred
-            x: 120
-            y: 120
-            width: 800
-            height: 600
-        }
-    }
-    \endqml
-*/
-
-
 WindowSettings::WindowSettings(Settings *parent)
     : Settings{parent}
 {

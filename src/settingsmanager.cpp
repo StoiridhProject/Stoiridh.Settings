@@ -25,45 +25,6 @@
 #include <QVector>
 
 
-/*! \qmltype SettingsManager
-    \instantiates SettingsManager
-    \inherits QtObject
-    \inqmlmodule Stoiridh.Settings
-    \ingroup stoiridh_settings
-    \since Stoiridh.Settings 1.0
-
-    \brief Saves and restores the application settings.
-
-    SettingsManager item is a singleton type allowing the save and load of the application settings.
-
-    Example:
-
-    \qml
-    import QtQuick 2.5
-    import QtQuick.Controls 1.4
-    import Stoiridh.Settings 1.0
-
-    ApplicationWindow {
-        menuBar: MenuBar {
-            Menu {
-                title: qsTr("&File")
-
-                MenuItem {
-                    text: qsTr("E&xit")
-                    onTriggered: {
-                        SettingsManager.save()
-                        Qt.quit()
-                    }
-                }
-            }
-        }
-
-        onClosing: SettingsManager.save()
-        Component.onCompleted: SettingsManager.load()
-    }
-    \endqml
-*/
-
 /*! \qmlmethod void Stoiridh.Settings::SettingsManager::load()
 
     Loads the application settings.
