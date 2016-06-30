@@ -1,6 +1,6 @@
 [submodule "config/cmake"]
 	path = config/cmake
-	url = https://github.com/viprip/Stoiridh-CMake-Tools.git
+	url = https://github.com/StoiridhProject/StoiridhCMakeTools.git
 [submodule "config/qbs"]
 	path = config/qbs
-	url = https://github.com/viprip/Stoiridh-Qbs-Tools.git
+	url = https://github.com/StoiridhProject/StoiridhTools.git
